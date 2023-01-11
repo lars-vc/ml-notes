@@ -175,20 +175,28 @@ If k = 1, then the object is simply assigned to the class of that single nearest
 * Hyperparameter is k
 * Bad predictions at the edges of the dataset
 
-### Linear discriminants/classification
-$g(x|\theta)=\sum_{j=1}^d w_j x_j + w_0$
+### Linear/Logistic Regression
+* Inference: O(d) space and computation
+* Simple models: easy optimisation, less risk of overfitting
 
+**Linear discriminant:**\
+$g(x|\theta)=\sum_{j=1}^d w_j x_j + w_0$\
 $(w_0,w_1,...,w_d)=\theta$
 
-Regression Log likelihood: $L(\mathbf{\theta}|X,r) = \sum_{t=1}^N[r_t-g(\mathbf{x_t}|\mathbf{\theta})]^2$
+**They mainly differ in loss function**
+#### Linear Regression
+**Loglikelihood/loss:**\
+$L(\mathbf{\theta}|X,r) = \sum_{t=1}^N[r_t-g(\mathbf{x_t}|\mathbf{\theta})]^2$
 
-Classification Log likelihood(logistic regression): $L(\mathbf{\theta}|\mathbf{X,r}) = - \sum_{t=1}^N \sum_{i=1}^K r_i^t log(P[C_i|\mathbf{x,\theta_i}])$
-
-$P[C_i|\mathbf{x,\theta_i}] = \frac{exp(g_i(x|\theta_i))}{\sum_{t=1}^N exp(\mathbf{x_t}|\mathbf{\theta})}$
-* Training has scaling behaviour
-* Simple inference for new data: O(d) memory and computation
-
-For classification add a sigmoid function at the end
+#### Logistic Regression (classification problems)
+We will use a modified regression loss for classification (hence the title)\
+Define the logit (*for 2 classes*): $a = log\frac{P(C_1|x,\theta)}{P(C_2|x,\theta)}\Leftrightarrow P(C_1|x,\theta) = \frac{exp(a)}{1+exp(a)}$\
+For >2 classes: $P(C_i|x,\theta_i) = \frac{exp(a_i)}{1+\sum_{j\ne i}exp(a_j)}$\
+Model principle: approximate the logits $a_i$ with a linear discriminant $g_i(x|\theta_i)$\
+Class labels: $r_i^t$ (this is 1 if sample t class == i else 0)
+**Loglikelihood/loss:**\
+$L(\mathbf{\theta}|\mathbf{X,r}) = - \sum_{t=1}^N \sum_{i=1}^K r_i^t log(P[C_i|\mathbf{x,\theta_i}])$\
+with $P(C_i|x,\theta_i) = \frac{1}{1+\sum_{j=1}^{K-1}exp(g_j(x|\theta_j))}$
 
 ### SVM (Support Vector Machines), end of slides 2
 Maximise the margin
@@ -199,6 +207,7 @@ $$ L_p = \frac{1}{2}||w||^2 - \sum_{t=1}^N\alpha_t r_t(w^T_t x_t+ w_0)+\sum_{t=1
 * Sparse solution
 * A solution only exists IFF the data is linearly separable.
 * At inference time, only product between new data point and the support vectors.
+
 #### Soft margin SVMs
 Allow for some points within the margin and thus for some misclassification (we do this to avoid overfitting). Support vectors are all points on or in margin. We add a regularisation parameter C.
 * Large C = more penalty, closer to hard margin
@@ -279,7 +288,7 @@ Standard stuff input layer, hidden layers, output layer
 IDK if we need to know this
 
 ### Deep neural networks
-They have lots of parameters so easily overfit, we need to regularize. We can do this by applying L2 or L1, early stopping (stop training when validation error starts to rise), data augmentation, adding noise, dropout,.
+They have lots of parameters so easily overfit, we need to regularize. We can do this by applying L2 or L1, early stopping (stop training when validation error starts to rise), data augmentation, adding noise, dropout, ...
 
 ## QnA (tom)
 ### Chapter 4
@@ -361,10 +370,17 @@ K-Means uses circular boundaries while MoG can have elliptical boundaries. Anoth
 
 > **Discuss MoG: properties and problems**
 
+**Properties:**
 - Can have elliptical boundaries
 - Is probabilistic instead of hard assignment
+- online updatable
+- fast inference
 
-TODO Problems?
+**Problems:**
+- Need regularization to avoid singularities 
+- Computationally slow
+- Sensitive to initialisation
+- Hard to choose K
 
 > **Draw & explain a MoG generative model as a directed graphical model. Explain all variables**
 
@@ -379,7 +395,7 @@ It has $j_n$ as a latent variable, which is a discrete latent variable.
 
 > **Model selection problem: How to select the optimal number of mixture components (K) for a MoG model**
 
-TODO, probably also just depends on data
+Depends on the data, you could use K means to experiments with the amount of K.
 
 > **Is a closed form analytical Maximum Likelihood estimation possible for a MoG model**
 
