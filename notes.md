@@ -1,6 +1,4 @@
 # ML Notes
-Rewatch some parts of 7
-TODO ALSO REDO lab presentations
 ## Terms (joni)
 * *Datasets*
     * *Train data:* The data you train on
@@ -100,7 +98,7 @@ TODO ALSO REDO lab presentations
 * *Dimensionality reduction:* Choose new x and y axis, project the datapoints on these new axis, then remove the axis that contains the least amount of information. This way the data is less correlated (because of the first step) and less complex (due to the second step), and your information loss is minimized.\
 This is just one example of dimensionality reduction however. Other techniques exists such as select-K-Best, SelectFromModel (some models, like random forests, return feature importances, so use this to pick the best features), etc.
     * Why reduce dimensionality: simpler models are more robust to overfitting, less computation, fewer parameters (faster inference)
-* *Orthogonalisation:* Choose new x and y axis, project the datapoints on these new axis, this way the features are decorrelated. TODO diff between dimensionality reduction
+* *Orthogonalisation:* Choose new x and y axis, project the datapoints on these new axis, this way the features are decorrelated.
 * *Sklearn preprocessing:* 
     * A scaler is applied on the columns, so for every sample feature A with be on the same scale (but not on the same scale as feature B)
     * A normalizer is applied on the rows, so for every sample all their features will be normalised independent of other samples.
