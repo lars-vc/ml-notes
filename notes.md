@@ -10,7 +10,6 @@
     * *Independently sampled:* There are no subgroups of samples that are correlated (and if there are, we need to take this into account!!)
         * Avoid correlations between samples
 * *Curse of Dimensionality:* Too many features -> overfitting.
-* *Dimensionality reduction:* number of used features is a hyperparameter.
 * *Regularization:* This is a hyperparameter, $C=1/\lambda$. Added on to the back of the loss function $+\frac{\lambda}{2}w^Tw$.
     * Lambda depends on task, number of features and number of samples.
     * Doesn't include $w_0$, don’t penalise getting the average right, even if this means we need a huge $w_0$!
@@ -28,7 +27,7 @@
     * precision TP/(TP+FP)
     * recall TP/(TP+FN) the probability of detecting a positive
     * specificity TN/(TN+FP) the probability of detecting a negative
-    * F1-score 2*precision*recall/(precision+recall)
+    * F1-score $2*precision*recall/(precision+recall)$
 * *RoC curve:* plots TP on FP
     * *AUC:* area under RoC curve
 
@@ -193,7 +192,7 @@ We will use a modified regression loss for classification (hence the title)\
 Define the logit (*for 2 classes*): $a = log\frac{P(C_1|x,\theta)}{P(C_2|x,\theta)}\Leftrightarrow P(C_1|x,\theta) = \frac{exp(a)}{1+exp(a)}$\
 For >2 classes: $P(C_i|x,\theta_i) = \frac{exp(a_i)}{1+\sum_{j\ne i}exp(a_j)}$\
 Model principle: approximate the logits $a_i$ with a linear discriminant $g_i(x|\theta_i)$\
-Class labels: $r_i^t$ (this is 1 if sample t class == i else 0)
+Class labels: $r_i^t$ (this is 1 if sample t class == i else 0)\
 **Loglikelihood/loss:**\
 $L(\mathbf{\theta}|\mathbf{X,r}) = - \sum_{t=1}^N \sum_{i=1}^K r_i^t log(P[C_i|\mathbf{x,\theta_i}])$\
 with $P(C_i|x,\theta_i) = \frac{1}{1+\sum_{j=1}^{K-1}exp(g_j(x|\theta_j))}$
@@ -212,7 +211,8 @@ $$ L_p = \frac{1}{2}||w||^2 - \sum_{t=1}^N\alpha_t r_t(w^T_t x_t+ w_0)+\sum_{t=1
 Allow for some points within the margin and thus for some misclassification (we do this to avoid overfitting). Support vectors are all points on or in margin. We add a regularisation parameter C.
 * Large C = more penalty, closer to hard margin
 * Small C = less penalty, more errors allowed, more regularisation
-Used loss function: Hinge loss (blue line)
+
+Used loss function: Hinge loss (blue line):
 * Robust to misclassified outliers
 * No penalisation of too correctly classified samples
 * Still favours sparse solutions
