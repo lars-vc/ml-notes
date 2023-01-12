@@ -113,6 +113,12 @@ This is just one example of dimensionality reduction however. Other techniques e
     * Partial dependence plots: Sweep 1 feature while keeping the rest, make a plot to show impact, can extend to 2D plots to combine 2 features.
 * *Fairness:* Absence of any prejudice or favoritism toward an individual or group based on their inherent or acquired characteristics
     * Hard to achieve fairness, since you don't have infinite data and the real world also isn't fair.
+* Requirements for ethical AI
+    * Willingness to act ethically
+    * Awareness of data-related risks
+    * Awareness of model-related risks
+    * Awareness of existing analysis and mitigation techniques
+    * Correct and nuance communication to non-techinical audiences (explainability)
  
 ### Bias and Variance of model
 * *Bias of a ML model:* the expected value across training sets of the expected value of the error of a model $E(g(x',\theta),f(x'))$ on unseen data $x'$
