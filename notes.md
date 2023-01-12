@@ -626,6 +626,7 @@ $$p(x'|X)=\int\frac{p(x'|\theta)p(X|\theta)p(\theta)}{\int p(X|\theta)p(\theta)d
 
 ![baycurvlearn image](baycurvelearn.png)
 ![baycurvpred image](baycurvepred.png)
+Key differences: ML estimation doesn't allow for uncertainty in the weights, frequentist approach. Compared to Bayesian learning uses a Bayesian approach which allows for uncertainty to be expressed in the weight. See above for picture frequentist vs Bayesian.
 
 ### Chapter 8
 #### HMM
