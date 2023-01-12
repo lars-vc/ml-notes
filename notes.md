@@ -147,7 +147,7 @@ This is just one example of dimensionality reduction however. Other techniques e
 
 ### GAPs
 #### Train-validate gap
-* Overfittting
+* Overfitting
     * Model not properly regularised
     * Too many features
     * Model too complex for given data set
@@ -528,6 +528,8 @@ Bayesian networks are automatically normalized. Markov Random Fields are not. Th
 If it's a chain just replace the directional links with regular links.\
 Else, when there are multiple parents, we need to introduce additional links, we need to marry the parents: fully interconnect them, this process is called **moralization**, It results in the **moral graph**.
 ![moral image](moral.png)
+Find max cliques for each nodes and initialize all clique potentials to 1.\
+Take each conditional distribution factor of original directed graph and multiply it into one clique potential.
 
 #### Inference in graphical models
 > **What is inference in graphical models**
@@ -538,6 +540,12 @@ Definition: Evaluate the probability distribution over some set of variables, gi
 
 **Also understand this**
 ![sumprod image](sumprod.png)
+Some more explanation:\
+* naive: $p(x_n)= \sum_{x_1}...\sum_{x_N}p(x)$
+    * cost = $O(K^N)$ with K = number of states
+* efficient: exploit conditional independence
+    * split computation into 2 parts, called messages: cost $O(N)$
+    * pass the messages from the two ends, to the query node: $p(x_n)=\frac{1}{Z}\mu_{\alpha}(x_n)\mu_{\beta}(x_n)$, with $\mu$ defined recursively: $\mu_{\alpha}(x_n) = \sum_{x_{n-1}} \psi_{n-1}{n}(x_{n-1,n}(x_{n-1},x_n)\mu_{\alpha}(x_{n-1}))$ and $Z = \mu_{\alpha}(x_n)+\mu_{\beta}(x_n)$
 
 ### Chapter 7
 ![freqbay image](freqbay.png)
@@ -545,7 +553,7 @@ Definition: Evaluate the probability distribution over some set of variables, gi
 #### Bayesian approach
 > **How can we prevent overfitting systematically**
 
-We add regularization, so we penalize large coefficient values. We add a quadratic regularizer, this is called L2-regularization or ridge regression.
+We add regularization, so we penalize large coefficient values. We add a quadratic regularizer, this is called L2-regularization, this result is derived using MAP.
 
 > **How can we avoid the need for validation on separate test data**
 
